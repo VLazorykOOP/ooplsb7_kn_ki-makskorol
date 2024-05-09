@@ -1,0 +1,72 @@
+#include <iostream>
+#include <string>
+#include <vector>
+#include <algorithm> // Add this header for std::find_if
+
+// Класс, що представляє Рахунок клієнта в банку
+class BankAccount {
+private:
+    std::string accountNumber;
+    double balance;
+
+public:
+    BankAccount(const std::string& accNum, double initialBalance) : accountNumber(accNum), balance(initialBalance) {}
+
+    std::string getAccountNumber() const {
+        return accountNumber;
+    }
+
+    // ...
+};
+
+// Класс, що представляє Банківську картку клієнта
+class BankCard {
+private:
+    std::string cardNumber;
+    bool isBlocked;
+    double totalSpent;
+
+public:
+    BankCard(const std::string& cardNum) : cardNumber(cardNum), isBlocked(false), totalSpent(0) {}
+
+    std::string getCardNumber() const {
+        return cardNumber;
+    }
+
+    // ...
+};
+
+// Головний клас, що представляє банк
+class Bank {
+private:
+    std::vector<BankAccount> accounts;
+    std::vector<BankCard> cards;
+
+public:
+    // ...
+
+    // Метод для видалення рахунку
+    void removeAccount(const std::string& accNum) {
+        auto it = std::find_if(accounts.begin(), accounts.end(), [&accNum](const BankAccount& acc) {
+            return acc.getAccountNumber() == accNum;
+        });
+        if (it != accounts.end()) {
+            accounts.erase(it);
+        }
+    }
+
+    // Метод для видалення банківської картки
+    void removeCard(const std::string& cardNum) {
+        auto it = std::find_if(cards.begin(), cards.end(), [&cardNum](const BankCard& card) {
+            return card.getCardNumber() == cardNum;
+        });
+        if (it != cards.end()) {
+            cards.erase(it);
+        }
+    }
+};
+
+int main() {
+    // ...
+    return 0;
+}
